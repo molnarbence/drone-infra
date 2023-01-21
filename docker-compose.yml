@@ -17,12 +17,13 @@ services:
       - DRONE_SERVER_PROTO=https
       - DRONE_TLS_CERT=/etc/certs/services.infra.home.crt
       - DRONE_TLS_KEY=/etc/certs/services.infra.home.key
+      - DRONE_GITEA_SKIP_VERIFY=true
     ports:
       - "6080:80"
       - "6443:443"
     restart: always
     volumes:
-      - /etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt
+      - /etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt:ro
       - $CERTS_PATH:/etc/certs
   
   drone-runner-docker:
@@ -39,6 +40,6 @@ services:
     restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt
+      - /etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt:ro
     depends_on:
       - drone-server
