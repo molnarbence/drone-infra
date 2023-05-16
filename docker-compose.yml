@@ -1,8 +1,8 @@
 version: "3"
 
 volumes:
-  drone:
-    driver: local
+  drone-data:
+    external: true
 
 services:
   drone-server:
