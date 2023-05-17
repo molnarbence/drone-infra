@@ -13,19 +13,15 @@ services:
       - DRONE_GITEA_CLIENT_ID=$DRONE_GITEA_CLIENT_ID
       - DRONE_GITEA_CLIENT_SECRET=$DRONE_GITEA_CLIENT_SECRET
       - DRONE_RPC_SECRET=$DRONE_RPC_SECRET
-      - DRONE_SERVER_HOST=services.infra.home:6443
+      - DRONE_SERVER_HOST=drone.infra.home
       - DRONE_SERVER_PROTO=https
-      - DRONE_TLS_CERT=/etc/certs/services.infra.home.crt
-      - DRONE_TLS_KEY=/etc/certs/services.infra.home.key
       - DRONE_GITEA_SKIP_VERIFY=true
       - DRONE_USER_CREATE=username:molnarbence,admin:true
     ports:
       - "6080:80"
-      - "6443:443"
     restart: always
     volumes:
       - /etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt:ro
-      - $CERTS_PATH:/etc/certs
       - drone-data:/data
   
   drone-runner-docker:
@@ -33,7 +29,7 @@ services:
     container_name: drone-runner-docker
     environment:
       - DRONE_RPC_PROTO=https
-      - DRONE_RPC_HOST=services.infra.home:6443
+      - DRONE_RPC_HOST=drone.infra.home
       - DRONE_RPC_SECRET=$DRONE_RPC_SECRET
       - DRONE_RUNNER_CAPACITY=2
       - DRONE_RUNNER_NAME=services-runner
