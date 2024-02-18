@@ -17,6 +17,7 @@ services:
       - DRONE_SERVER_PROTO=https
       - DRONE_GITEA_SKIP_VERIFY=true
       - DRONE_USER_CREATE=username:molnarbence,admin:true
+      - DRONE_JSONNET_ENABLED=true
     ports:
       - "6080:80"
     restart: always
